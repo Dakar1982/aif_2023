@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fuel Price App</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'station_list' %}">Lista stacji</a></li>
+      <li><a href="{% url 'cheapest_price' %}">Najtańsza cena</a></li>
+      <li><a href="{% url 'create_price' %}">Dodaj cenę</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>

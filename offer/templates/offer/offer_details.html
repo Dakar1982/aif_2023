@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+Oferta
+{% endblock %}
+
+{% block header %}
+<h2>Oferta</h2>
+{% endblock %}
+
+{% block content %}
+<div class="col-5 col-sm-10 p-1 bg-white">
+	<div class="row">
+		<div class="col-2 fw-bold">Tytuł</div>
+		<div class="col-10">{{ offer.title }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Cena</div>
+		<div class="col-10">{{ offer.price }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Data od</div>
+		<div class="col-10">{{ offer.date_from }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Data do</div>
+		<div class="col-10">{{ offer.date_to }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Status</div>
+		<div class="col-10">{{ offer.get_status_display }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Kategoria</div>
+		<div class="col-10">{{ offer.category }}</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Kategoria</div>
+		<div class="col-10">
+			{% if offer.image %}
+				{% thumbnail offer.image "400" quality=96 crop="center" as small_image %}
+					<img src="{{ small_image.url }}" />
+				{% endthumbnail %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2 fw-bold">Opis</div>
+		<div class="col-10">{{ offer.description }}</div>
+	</div>
+</div>
+{% endblock %}

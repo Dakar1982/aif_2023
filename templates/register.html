@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+{% block header %}
+	<h2>Rejestracja</h2>
+{% endblock %}
+{% block content %}
+<div class="form-group row justify-content-center align-items-center">
+	<div class="card card-default col-10 col-lg-10 mt-5 mb-5">
+		<div class="card-body">
+			<form action="" method="post">
+				{% csrf_token %}
+				<table>
+				{{ form }}
+				</table>
+				<div class="p-2">
+					<button class="btn btn-primary btn-sm m-1"
+							type="submit">
+						<i class="fas fa-sign-in-alt"></i> Zarejestruj
+					</button>
+					<a class="btn btn-secondary btn-sm m-1"
+						href="{% url "offer-list" %}">
+						<i class="fas fa-undo"></i> Anuluj
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

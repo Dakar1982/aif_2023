@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+Oferty
+{% endblock %}
+
+{% block header %}
+<h2>Oferty</h2>
+{% endblock %}
+
+{% block content %}
+<form name="search_form" method="post" class="form-inline">
+	{% csrf_token %}
+	{{ form }}
+	<button type="submit"
+		    class="btn btn-primary btn-sm">
+		Szukaj
+	</button>
+</form>
+<a type="button"
+   class="btn btn-primary btn-sm{% if not user.is_authenticated %} disabled{% endif %}"
+   href="{% url "offer-create" %}">
+	<i class="fas fa-plus"></i> Dodaj
+</a>
+<table class="table">
+	<tr>
+		<th></th>
+		<th>Tytuł</th>
+		<th>Cena</th>
+		<th>Data od</th>
+		<th>Data do</th>
+		<th>Status</th>
+		<th>Kategoria</th>
+		<th></th>
+	</tr>
+	{% for offer in offers %}
+	<tr>
+		<td>
+			{% if offer.image %}
+				{% thumbnail offer.image "100" quality=50 crop="center" as small_image %}
+					<img src="{{ small_image.url }}" />
+				{% endthumbnail %}
+			{% endif %}
+		</td>
+		<td><a href="{% url "offer-details" offer.id %}">{{ offer.title }}</a></td>
+		<td>{{ offer.price }}</td>
+		<td>{{ offer.date_from|date:"Y-m-d" }}</td>
+		<td>{{ offer.date_to|date:"Y-m-d" }}</td>
+		<td>{{ offer.get_status_display }}</td>
+		<td>{{ offer.category|default:"[NIMO]" }}</td>
+		<td>
+			<a href="{% url "offer-update" offer.id %}" class="btn btn-primary btn-sm{% if not user.is_authenticated %} disabled{% endif %}">
+				<i class="fas fa-edit"></i> Edytuj
+			</a>
+			<a href="{% url "offer-delete" offer.id %}" class="btn btn-danger btn-sm{% if not user.is_authenticated %} disabled{% endif %}">
+				<i class="fas fa-trash"></i> Usuń
+			</a>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}
